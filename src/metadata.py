@@ -33,6 +33,7 @@ class Source:
     function: Optional[str] = None
     drop_too_fast_trips: bool = True
     drop_shapes: bool = False
+    drop_agency_names: List[str] = []
 
     def __init__(self, parsed: Optional[dict] = None):
         self.license = License()
@@ -60,6 +61,8 @@ class Source:
                 self.drop_too_fast_trips = parsed["drop-too-fast-trips"]
             if "drop-shapes" in parsed:
                 self.drop_shapes = parsed["drop-shapes"]
+            if "drop-agency-names" in parsed:
+                self.drop_agency_names = parsed["drop-agency-names"]
 
 
 class HttpOptions:
@@ -68,6 +71,7 @@ class HttpOptions:
     ignore_tls_errors: bool = False
 
     def __init__(self, parsed: Optional[dict] = None):
+        self.headers = {}
         if parsed:
             if "fetch-interval-days" in parsed:
                 self.fetch_interval_days = \
@@ -83,14 +87,24 @@ class HttpOptions:
 class TransitlandSource(Source):
     transitland_atlas_id: str = ""
     options: HttpOptions = HttpOptions()
-    url_override: Optional[str] = None
-    proxy: bool = False
 
     def __init__(self, parsed: dict):
         super().__init__(parsed)
         self.transitland_atlas_id = parsed["transitland-atlas-id"]
         self.url_override = parsed.get("url-override", None)
-        self.proxy = parsed.get("proxy", False)
+
+        if "http-options" in parsed:
+            self.options = HttpOptions(parsed["http-options"])
+
+
+class MobilityDatabaseSource(Source):
+    mdb_id: int = -1
+    options: HttpOptions = HttpOptions()
+
+    def __init__(self, parsed: dict):
+        super().__init__(parsed)
+        self.mdb_id = parsed["mdb-id"]
+        self.url_override = parsed.get("url-override", None)
 
         if "http-options" in parsed:
             self.options = HttpOptions(parsed["http-options"])
@@ -100,6 +114,7 @@ class HttpSource(Source):
     url: str = ""
     options: HttpOptions = HttpOptions()
     url_override: Optional[str] = None
+    cache_url: Optional[str] = None
 
     def __init__(self, parsed: Optional[dict] = None):
         if parsed:
@@ -113,20 +128,22 @@ class HttpSource(Source):
 
 class UrlSource(Source):
     url: str = ""
-    authorization: Optional[str] = None
+    headers: Optional[dict[str, str]] = None
 
     def __init__(self, parsed: Optional[dict] = None):
         if parsed:
             super().__init__(parsed)
             self.url = parsed["url"]
-            if "authorization" in parsed:
-                self.authorization = parsed["authorization"]
+            if "headers" in parsed:
+                self.headers = parsed["headers"]
 
 
 def sourceFromJson(parsed: dict) -> Source:
     match parsed["type"]:
         case "transitland-atlas":
             return TransitlandSource(parsed)
+        case "mobility-database":
+            return MobilityDatabaseSource(parsed)
         case "http":
             return HttpSource(parsed)
         case "url":

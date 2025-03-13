@@ -7,6 +7,10 @@
         {
             "name": "Paul Brown",
             "github": "Bro66666"
+        },
+        {
+            "name": "Alfredo Cubitos",
+            "github": "AlfredoCubitos"
         }
     ],
     "sources": [
@@ -15,6 +19,8 @@
             "type": "http",
             "url": "https://nap.transportes.gob.es/api/Fichero/download/1096",
             "fix": true,
+            "skip": true,
+            "skip-reason": "Not correct GTFS, too bad for automatic fixing",
             "http-options": {
                 "fetch-interval-days": 1,
                 "headers": {
@@ -219,6 +225,8 @@
             "type": "http",
             "url": "https://nap.transportes.gob.es/api/Fichero/download/1582",
             "fix": true,
+            "skip": true,
+            "skip-reason": "expired",
             "http-options": {
                 "fetch-interval-days": 1,
                 "headers": {
@@ -459,6 +467,8 @@
             "type": "http",
             "url": "https://nap.transportes.gob.es/api/Fichero/download/1097",
             "fix": true,
+            "skip": true,
+            "skip-reason": "headway_secs is in minutes which makes timetable entirely wrong",
             "http-options": {
                 "fetch-interval-days": 1,
                 "headers": {
@@ -717,6 +727,12 @@
                     "ApiKey": "e8143a1e-d12e-4a01-9b08-caf3071e4853"
                 }
             }
+        },
+        {
+            "name": "Ferrocarriles-de-la-Generalitat-de-Cataluña",
+            "type": "http",
+            "url": "https://dadesobertes.fgc.cat/explore/dataset/trip-updates-gtfs_realtime/files/735985017f62fd33b2fe46e31ce53829/download/",
+            "spec": "gtfs-rt"
         },
         {
             "name": "Ferry-Baleària",
@@ -1329,6 +1345,12 @@
                     "ApiKey": "e8143a1e-d12e-4a01-9b08-caf3071e4853"
                 }
             }
+        },
+        {
+            "name": "Trasnportes-Insular-de-La-Palma-(TILP)",
+            "type": "http",
+            "url": "https://www.arcgis.com/sharing/rest/content/items/a00541a34b4b432aa7c9937f34b3e19e/data",
+            "fix": "true"
         }
     ]
 }

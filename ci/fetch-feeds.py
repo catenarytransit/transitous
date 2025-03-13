@@ -24,7 +24,7 @@ repo = "public-transport/transitous"
 bot_account = "transitous-bot"
 
 
-def create_feed_error_issue(feed: str, details: str, github_token: str) -> None:
+def create_feed_error_issue(feed: Path, details: str, github_token: str) -> None:
     issue_title = f"Error fetching '{feed}'"
 
     # Check if an error issue already exists
@@ -38,6 +38,12 @@ def create_feed_error_issue(feed: str, details: str, github_token: str) -> None:
         print(f"Error searching for existing issue for {feed}")
         print(response.json())
         return
+
+    # Get latest commit hash for the feed file
+    commit_id = subprocess.check_output(
+        ["git", "log", "-n", "1", "--pretty=format:%H", "--", feed]
+    ).decode().strip()
+    feed_permalink = f"https://github.com/{repo}/blob/{commit_id}/{feed}"
 
     assignees = []
     with open(feed) as f:
@@ -74,7 +80,7 @@ On **{time_string}**
 f"""
 **CC**: {mentions}
 
-An error occured while fetching a feed from `{feed}`.
+An error occured while fetching a feed from [`{feed}`]({feed_permalink}).
 If the error is not temporary, please consider replacing or removing the feed.
 Thanks!
 
@@ -102,7 +108,7 @@ On **{time_string}**:
     print(f"Created error issue for {feed}")
 
 
-def do_fetch(feed: str):
+def do_fetch(feed: Path):
     try:
         details = subprocess.check_output(
             ["./src/fetch.py", feed], stderr=subprocess.STDOUT
@@ -145,7 +151,7 @@ match run_reason:
         )
 
         changed_feeds = [
-            f
+            Path(f)
             for f in changed_files
             if Path(f).exists() and f.startswith("feeds/") and f.endswith(".json")
         ]

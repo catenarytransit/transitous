@@ -6,4 +6,9 @@
   hosts: woodpecker
   roles:
     - woodpecker
+
+- name: Set up Woodpecker agent
+  hosts: crunchy
+  roles:
     - woodpecker-agent
+    - gtfs-server

@@ -24,21 +24,21 @@ steps:
     commands:
       - git submodule update --init --checkout --remote
       - ./ci/fetch-feeds.py timer
+      - ./src/garbage-collect.py
+      - ./src/generate-attribution.py
   import:
     image: ghcr.io/public-transport/transitous/import:latest
+    when:
+      - event: cron
+        cron: daily-import
     pull: true
     commands:
       - motis --version
-      - rm out/data -rf
-      - ./src/generate-attribution.py
+      - touch out/.import-running
       - ./src/generate-motis-config.py import
-      - cd out && ../ci/motis-import.py > motis-import.log && rm motis-import.log && cd ..
+      # Remove files that we want to regenerate
+      - bash -c "rm -f out/data/meta/{adr_extend.json,tt.json,matches.json,osr_footpath.json} out/data/shape*"
+      # Start import
+      - cd out && motis import -c config.yml > motis-import.log && rm motis-import.log && cd ..
       - src/generate-motis-config.py full
-  push:
-    image: ghcr.io/public-transport/transitous/import:latest
-    secrets: [ RSYNC_PRIVATE_KEY ]
-    commands:
-      - echo "$${RSYNC_PRIVATE_KEY}" > deploy_key
-      - chmod 600 ./deploy_key
-      - "rsync -avz --progress --delete -e 'ssh -i ./deploy_key -p 22 -o StrictHostKeyChecking=no' out/ rsync@vm-motis.spline.de:"
-      - rm deploy_key
+      - rm out/.import-running

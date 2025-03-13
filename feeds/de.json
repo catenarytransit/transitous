@@ -7,6 +7,10 @@
         {
             "name": "Robin Durner",
             "github": "traines-source"
+        },
+        {
+            "name": "Max Buchholz",
+            "github": "1Maxnet1"
         }
     ],
     "sources": [
@@ -18,6 +22,17 @@
                 "spdx-identifier": "CC-BY-4.0"
             },
             "fix": true,
+            "drop-agency-names": [
+                "Berliner Verkehrsbetriebe",
+                "S-Bahn Berlin GmbH",
+                "Verkehrsgesellschaft Teltow-Fläming mbH",
+                "Verkehrsbetriebe Oldenburger Land",
+                "üstra Hannoversche Verkehrsbetriebe AG",
+                "Braunschweiger Verkehrs-GmbH",
+                "Kraftverkehrsgesellschaft mbH Braunschweig",
+                "SWO Mobil GmbH",
+                "FlixBus-de"
+            ],
             "http-options": {
                 "fetch-interval-days": 2
             }
@@ -48,6 +63,40 @@
             "license": {
                 "spdx-identifier": "CC-BY-4.0"
             }
+        },
+        {
+            "name": "VBN",
+            "type": "http",
+            "url": "https://www.connect-info.net/opendata/gtfs/connect-nds-lowlevel/eyqasqtsse",
+            "http-options": {
+                "fetch-interval-days": 1
+            },
+            "license": {
+                "spdx-identifier": "CC-BY-SA-4.0"
+            }
+        },
+        {
+            "name": "VBN",
+            "type": "url",
+            "spec": "gtfs-rt",
+            "url": "http://gtfsr.vbn.de/gtfsr_connect.bin",
+            "license": {
+                "spdx-identifier": "CC-BY-SA-4.0"
+            }
+        },
+        {
+            "name": "AVV-Aachen",
+            "type": "http",
+            "url": "https://opendata.avv.de/current_GTFS/AVV_GTFS_Masten_ohne_SPNV_GlobaleID_oFremd.zip",
+            "license": {
+                "spdx-identifier": "ODbL-1.0",
+                "url": "https://opendata.avv.de/current_GTFS/lizenz_und_readme.txt"
+            }
+        },
+        {
+            "name": "RegioRadStuttgart",
+            "type": "transitland-atlas",
+            "transitland-atlas-id": "f-regioradstuttgart~stuttgart~gbfs"
         }
     ]
 }

@@ -22,6 +22,12 @@
             "transitland-atlas-id": "f-u2f-pražskáintegrovanádoprava"
         },
         {
+            "name": "PID",
+            "type": "url",
+            "spec": "gtfs-rt",
+            "url": "https://api.golemio.cz/v2/vehiclepositions/gtfsrt/trip_updates.pb"
+        },
+        {
             "name": "IDS-JMK",
             "type": "transitland-atlas",
             "transitland-atlas-id": "f-u2e-idsjmk"
@@ -29,13 +35,20 @@
         {
             "name": "DPMLJ",
             "type": "transitland-atlas",
-            "transitland-atlas-id": "f-u348-dpmlj"
+            "transitland-atlas-id": "f-u348-dpmlj",
+            "skip": true,
+            "skip-reason": "Feed not available"
         },
         {
             "name": "DPMO",
             "type": "transitland-atlas",
             "transitland-atlas-id": "f-u2u6-dpmo",
             "fix": true
+        },
+        {
+            "name": "Bean-Shuttle",
+            "type": "mobility-database",
+            "mdb-id": 2036
         }
     ]
 }

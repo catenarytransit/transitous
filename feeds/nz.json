@@ -65,6 +65,11 @@
             "name": "Baybus",
             "type": "transitland-atlas",
             "transitland-atlas-id": "f-boprc~nz"
+        },
+        {
+            "name": "Horizons-Regional-Council",
+            "type": "transitland-atlas",
+            "transitland-atlas-id": "f-rck-horizons~regional~council"
         }
     ]
 }

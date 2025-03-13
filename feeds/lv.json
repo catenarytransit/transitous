@@ -2,7 +2,7 @@
     "maintainers": [
         {
             "name": "Jonah Brüchert",
-            "github": "jbbgameich"
+            "github": "jbruechert"
         }
     ],
     "sources": [
@@ -17,6 +17,11 @@
             "type": "url",
             "spec": "gtfs-rt",
             "url": "https://gsvalbe.id.lv/pieturas/dati/gtfs-rt.pb"
+        },
+        {
+            "name": "B-Bus",
+            "type": "mobility-database",
+            "mdb-id": 2385
         }
     ]
 }
