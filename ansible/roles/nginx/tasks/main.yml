@@ -9,12 +9,13 @@
 
 - name: Unpack MOTIS (frontend)
   unarchive:
-    src: https://github.com/public-transport/transitous/releases/download/motis-v2.0.22/motis-v2.0.22.tar.bz2
+    src: https://github.com/motis-project/motis/releases/download/v2.6.2/motis-linux-amd64.tar.bz2
     dest: /opt/motis/
     remote_src: yes
 
 - name: Install nginx
   apt:
+    update_cache: true
     name:
      - nginx
      - certbot
@@ -29,6 +30,11 @@
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
 
+- name: Install nginx logrotate config
+  copy:
+    src: logrotate-nginx
+    dest: /etc/logrotate.d/nginx
+
 - name: Install robots.txt
   copy:
     src: robots.txt
@@ -37,7 +43,20 @@
 - name: Install site config
   template:
     src: "transitous.conf.j2"
-    dest: "/etc/nginx/sites-available/transitous.conf"
+    dest: "/etc/nginx/sites-available/{{ item.vhost }}"
+  with_items:
+    - vhost: api.transitous.org
+      backends:
+        - address: 10.11.1.1:8080
+          options: "backup" # nginx backend options
+        - address: 10.11.1.3:8080
+          options: ""
+    - vhost: staging.api.transitous.org
+      backends:
+        - address: 10.11.1.2:8080
+          options: ""
+        - address: 10.11.1.1:8080
+          options: "backup"
 
 - name: Disable default site configuration
   file:
@@ -46,9 +65,12 @@
 
 - name: Enable nginx sites
   file:
-    src: "/etc/nginx/sites-available/transitous.conf"
-    dest: "/etc/nginx/sites-enabled/transitous.conf"
+    src: "/etc/nginx/sites-available/{{ item.vhost }}"
+    dest: "/etc/nginx/sites-enabled/{{ item.vhost }}"
     state: link
+  with_items:
+    - vhost: api.transitous.org
+    - vhost: staging.api.transitous.org
 
 - name: Reload nginx
   systemd:
@@ -67,3 +89,18 @@
   systemd:
     name: nginx.service
     state: started
+
+- name: Install nginx log exporter config
+  copy:
+    src: prometheus-nginxlog-exporter.hcl
+    dest: /etc/prometheus-nginxlog-exporter.hcl
+
+- name: Install nginx log exporter
+  apt:
+    deb: https://github.com/martin-helmich/prometheus-nginxlog-exporter/releases/download/v1.11.0/prometheus-nginxlog-exporter_1.11.0_linux_arm64.deb
+
+- name: Make sure nginx log exporter is running
+  systemd:
+    name: prometheus-nginxlog-exporter
+    state: started
+    enabled: true

@@ -19,17 +19,28 @@
                 "url": "https://www.fintraffic.fi/fi/digitaalisetpalvelut/fintrafficin-datapalvelut/liikkumisen-tietopalvelut/joukkoliikenteen-tietopalvelut/koontipalvelu"
             },
             "fix": true,
-            "drop-agency-names": ["FlixBus-eu", "FlixTrain-eu", "VR", "Pohjois-Suomen Rautatieharrastajat ry", "Sinisten vaunujen ystävät ry"]
+            "drop-agency-names": [
+                "FlixBus-eu",
+                "FlixTrain-eu",
+                "VR",
+                "Pohjois-Suomen Rautatieharrastajat ry",
+                "Sinisten vaunujen ystävät ry"
+            ]
         },
         {
             "name": "digitraffic",
             "type": "http",
-            "url": "https://rata.digitraffic.fi/api/v1/trains/gtfs-all.zip",
+            "url": "https://rata.digitraffic.fi/api/v1/trains/gtfs-passenger-stops.zip",
             "license": {
                 "spdx-identifier": "CC-BY-4.0",
                 "url": "https://www.digitraffic.fi/en/railway-traffic/"
             },
-            "fix": true
+            "fix": true,
+            "http-options": {
+                "headers": {
+                    "accept-encoding": "gzip"
+                }
+            }
         },
         {
             "name": "digitraffic",
@@ -47,9 +58,27 @@
             "transitland-atlas-id": "f-ued-oulunjoukkoliikenne"
         },
         {
-           "name": "hsl",
-           "type": "transitland-atlas",
-           "transitland-atlas-id": "f-ud9-helsinginseudunliikenne"
+            "name": "hsl",
+            "type": "transitland-atlas",
+            "transitland-atlas-id": "f-ud9-helsinginseudunliikenne"
+        },
+        {
+            "name": "hsl",
+            "spec": "gtfs-rt",
+            "type": "url",
+            "url": "https://realtime.hsl.fi/realtime/trip-updates/v2/hsl"
+        },
+        {
+            "name": "hsl",
+            "spec": "gtfs-rt",
+            "type": "url",
+            "url": "https://realtime.hsl.fi/realtime/service-alerts/v2/hsl"
+        },
+        {
+            "name": "hsl",
+            "spec": "gtfs-rt",
+            "type": "url",
+            "url": "https://realtime.hsl.fi/realtime/vehicle-positions/v2/hsl"
         }
     ]
 }

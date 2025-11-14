@@ -14,7 +14,9 @@
         {
             "name": "alexandria-dash",
             "type": "transitland-atlas",
-            "transitland-atlas-id": "f-dqchv-alexandriatransitcompanydash~rt"
+            "transitland-atlas-id": "f-dqchv-alexandriatransitcompanydash~rt",
+            "skip": true,
+            "skip-reason": "api-key is missing"
         },
         {
             "name": "altavista",
@@ -152,7 +154,8 @@
         {
             "name": "dqch-prtc",
             "type": "transitland-atlas",
-            "transitland-atlas-id": "f-dqch-prtc"
+            "transitland-atlas-id": "f-dqch-prtc",
+            "fix": true
         },
         {
             "name": "pulaski",
@@ -178,7 +181,9 @@
         {
             "name": "university-virginia",
             "type": "transitland-atlas",
-            "transitland-atlas-id": "f-university~of~virginia"
+            "transitland-atlas-id": "f-university~of~virginia",
+            "skip": true,
+            "skip-reason": "Feed is expired"
         },
         {
             "name": "roanoke",
@@ -216,7 +221,9 @@
         {
             "name": "williamsburg",
             "type": "transitland-atlas",
-            "transitland-atlas-id": "f-wata~rt"
+            "transitland-atlas-id": "f-wata~rt",
+            "skip": true,
+            "skip-reason": "api-key is missing"
         },
         {
             "name": "winchester",
