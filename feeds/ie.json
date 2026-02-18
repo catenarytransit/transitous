@@ -3,6 +3,10 @@
         {
             "github": "heckenfolker",
             "name": "Heckenfolker"
+        },
+        {
+            "github": "jbruechert",
+            "name": "Jonah Brüchert"
         }
     ],
     "sources": [
@@ -20,12 +24,16 @@
             "type": "url",
             "spec": "gtfs-rt",
             "url": "https://api.nationaltransport.ie/gtfsr/v2/TripUpdates",
-            "headers": {
-                "x-api-key": "428a90e546aa482f9dfe75d7682ae8f1"
-            },
+            "headers": {},
             "license": {
                 "spdx-identifier": "CC-BY-SA-4.0"
-            }
+            },
+            "use-feed-proxy": true
+        },
+        {
+            "name": "ferries-cablecars-flights",
+            "type": "transitland-atlas",
+            "transitland-atlas-id": "f-gc-donegalcoastalcruises~arranmorecar~passengerferryservice~ar"
         }
     ]
 }

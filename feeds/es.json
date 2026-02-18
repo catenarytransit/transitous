@@ -11,6 +11,10 @@
         {
             "name": "Alfredo Cubitos",
             "github": "AlfredoCubitos"
+        },
+        {
+            "name": "Pablo Castellanos",
+            "github": "pacastega"
         }
     ],
     "sources": [
@@ -50,7 +54,8 @@
                 "headers": {
                     "ApiKey": "e8143a1e-d12e-4a01-9b08-caf3071e4853"
                 }
-            }
+            },
+            "script": "es-alsa.lua"
         },
         {
             "name": "Autobús-Comarca-de-Pamplona",
@@ -128,11 +133,9 @@
             "http-options": {
                 "fetch-interval-days": 1,
                 "headers": {
-                    "ApiKey": "e8143a1e-d12e-4a01-9b08-caf3071e4853"
+                    "ApiKey": "b2be1741-ed99-41e7-99bf-924b32694633"
                 }
-            },
-            "skip": true,
-            "skip-reason": "Broken file"
+            }
         },
         {
             "name": "Autobuses-Junta-de-Extremadura",
@@ -522,11 +525,9 @@
             "http-options": {
                 "fetch-interval-days": 1,
                 "headers": {
-                    "ApiKey": "e8143a1e-d12e-4a01-9b08-caf3071e4853"
+                    "ApiKey": "b2be1741-ed99-41e7-99bf-924b32694633"
                 }
-            },
-            "skip": true,
-            "skip-reason": "Feed expired"
+            }
         },
         {
             "name": "Autobús-urbano-de-Málaga",
@@ -1152,17 +1153,10 @@
         {
             "name": "Metro-Bilbao",
             "type": "http",
-            "url": "https://nap.transportes.gob.es/api/Fichero/download/1267",
-            "fix": true,
-            "http-options": {
-                "fetch-interval-days": 1,
-                "headers": {
-                    "ApiKey": "e8143a1e-d12e-4a01-9b08-caf3071e4853"
-                }
-            },
+            "url": "https://ctb-gtfs.s3.eu-south-2.amazonaws.com/metrobilbao.zip",
             "license": {
                 "spdx-identifier": "CC-BY-4.0",
-                "url": "https://data.ctb.eus/en/dataset/horario-metro-bilbao"
+                "url": "https://data.ctb.eus/en/pages/legal-notice"
             }
         },
         {
